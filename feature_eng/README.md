@@ -1,0 +1,22 @@
+## FEATURE ENGINEERING ##
+This project contains the script used for feature engineering:
+- first_data_exploration.py, explores data in the drugbank dataset.
+- get_missed_formulas.py, uses external databases to gather the drugbank dataset missing information
+- ddi:
+    - gs_ddi.py, creates the compliant dataset, starting from the drugbank dataset, containing positive and negatives ddi instances
+    - gs_ddi_split.py, splits the provided dataset in train and validation sets
+    - ext_data_set_norm.py, reads the external datasets (the binary pickle versions), removes drugs which are not in drugbank and create the full ddi dataset, comprising all the external datasets ddi
+    - gs_ddi_negs.py, creates a dataset containing only negative samples starting from the drugbank dataset.
+    - gs_ddi_ext_datasets_db_negs.py, starts from the external datasets, and creates the dataset structure (compliant to our experiments) containing positives and negatives. The negative instances are extracted from an external pickle file, created from the drugbank dataset using gs_ddi_negs.py.
+    - gs_extract_train_val.py, extracts training and validation samples from a dataset
+    - gs_ddi_embeddings.py, updates the provided dataset computing embeddings for organism targeted by drugs and for SMILES formulas. We used MolFormer-XL for SMILES and text-embedding-3-small for organisms.
+- llm:
+    - prep_gs_ddi_GPT_ft.py, prepares the jsonl files for GPT-4 fine-tuning.
+    - prep_gs_ddi_Gemma_ft.py, prepares the jsonl files for Gemma2 fine-tuning.
+    - prep_gs_ddi_DS_ft.py, prepares the jsonl files for Deepseek r1 distilled models fine-tuning.
+    - fine_tune_GPT.py, lauches the fine-tuning for GPT-4
+    - gs_ddi_GPT_eval.py, evaluates the performance of the GPT-4 model on a secific dataset.
+    - gs_ddi_Gemini_eval.py, evaluates the performance of the Gemini model on a secific dataset.
+    - gs_ddi_Open_LLM_eval.py, evaluates the performance of Open LLM models on a secific dataset.
+    - gs_ddi_Claude_eval.py, evaluates the performance of the Claude model on a secific dataset.
+    - analyze_gs_ddi_LLM.py, compute metrics on the evaluation performed using eval scripts.

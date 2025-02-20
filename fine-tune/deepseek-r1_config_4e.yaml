@@ -1,0 +1,29 @@
+model: "mlx-community/deepseek-r1-distill-qwen-1.5b"
+train: true
+data: "data/deepseek-r1-data"
+seed: 3407
+lora_layers: 28
+batch_size: 8
+iters: 680
+val_batches: 100
+learning_rate: 0.00021589182820107126 # new learning rate
+steps_per_report: 10
+steps_per_eval: 50
+resume_adapter_file: null
+adapter_path: "adapters/adapters_deepseek-r1_5e"
+save_every: 100
+test: false
+test_batches: 100
+max_seq_length: 2048
+grad_checkpoint: true
+lora_parameters:
+  keys: ["self_attn.o_proj", "self_attn.q_proj", "self_attn.k_proj", "self_attn.v_proj", "mlp.gate_proj", "mlp.up_proj", "mlp.down_proj"]
+  rank: 32
+  alpha: 32
+  scale: 4.212755868632525
+  dropout: 0.014623080128583293
+lr_schedule:
+    name: cosine_decay
+    warmup: 5
+    warmup_init: 0
+    arguments: [0.00021589182820107126, 680, 2.8e-4] # Lower learning rate for scheduler
