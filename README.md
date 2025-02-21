@@ -18,11 +18,11 @@ The repository is organized as follows:
 The `external-datasets` folder contains the external datasets from Serkan et al. used to validate the fine-tuned models.
 
 Specifically, it contains the following datasets: 
-- Clinical knowledge bases: CredibleMeds, HEP, and HIV.
-- Annotated corpora: DDI Corpus 2011, DDI Corpus 2013, NLM Corpus, and PK DDI Corpus.
-- Healthcare systems: OSCAR EMR and WorldVista.
-- Reference resources: French DDI Referrals, KEGG, and NDF-RT.
-- Clinical guidelines: ONC High Priority DDI List and ONC Non-Interuptive DDI List.
+- *Clinical knowledge bases*: CredibleMeds, HEP, and HIV.
+- *Annotated corpora*: DDI Corpus 2011, DDI Corpus 2013, NLM Corpus, and PK DDI Corpus.
+- *Healthcare systems*: OSCAR EMR and WorldVista.
+- *Reference resources*: French DDI Referrals, KEGG, and NDF-RT.
+- *Clinical guidelines*: ONC High Priority DDI List and ONC Non-Interuptive DDI List.
 
 ## Data Extraction
 The `extractor` folder contains the python scripts to extract the necessary data used in our work.
