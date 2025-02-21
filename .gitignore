@@ -10,6 +10,8 @@ external-datasets/public-PDDI-analysis-master/PDDI-Datasets/
 external-datasets/public-PDDI-analysis-master/scripts/
 external-datasets/public-PDDI-analysis-master/sql-scripts/
 external-datasets/public-PDDI-analysis-master/terminology-mappings/
+extractor/extracted_data/ddi_datasets/full-known-interactions/
+extractor/extracted_data/ddi_datasets/samples/
 extractor/drugs_data.pkl
 extractor/extracted_data/categories/
 extractor/extracted_data/classification/
@@ -39,6 +41,8 @@ feature_eng/processed_drugs.pk
 feature_eng/feature_eng/atc_proc.py
 feature_eng/feature_eng/attr_binaryzer.py
 feature_eng/feature_eng/drug_food_int_classify.py
+feature_eng/feature_eng/gs_ddi_embeddings.py
+fine-tune/data/
 fine-tune/adapters/
 fine-tune/llama.cpp/
 fine-tune/models/
