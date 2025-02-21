@@ -42,6 +42,8 @@ feature_eng/feature_eng/atc_proc.py
 feature_eng/feature_eng/attr_binaryzer.py
 feature_eng/feature_eng/drug_food_int_classify.py
 feature_eng/feature_eng/gs_ddi_embeddings.py
+feature_eng/feature_eng/gs_ddi_join_embeddings_and_texts.py
+feature_eng/feature_eng/drug_drug_int_classify.py
 fine-tune/data/
 fine-tune/adapters/
 fine-tune/llama.cpp/
