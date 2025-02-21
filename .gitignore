@@ -30,7 +30,7 @@ extractor/genes_names.pkl
 extractor/extractor/categories/
 extractor/extractor/classification/
 extractor/extractor/interactions/
-extractor/extractor/categories/pharmacology/
+extractor/extractor/pharmacology/
 extractor/extractor/ttd/
 feature_eng/atc.pkl
 feature_eng/drugs_without_mol_data.csv
