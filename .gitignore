@@ -1,6 +1,7 @@
 *.xsd
 *.pyc
 *.ipynb
+*.DS_Store
 extractor/extracted_data/ddi_datasets/samples/with-emb/
 external-datasets/TTD/
 external-datasets/public-PDDI-analysis-master/analysis-results/
@@ -12,6 +13,7 @@ external-datasets/public-PDDI-analysis-master/terminology-mappings/
 extractor/drugs_data.pkl
 extractor/extracted_data/categories/
 extractor/extracted_data/classification/
+extractor/extracted_data/ddi_datasets/converted/
 extractor/extracted_data/ddi_datasets/compliant_datasets/*.pickle
 extractor/extracted_data/ddi_datasets/compliant_datasets/*.pkl
 extractor/extracted_data/ddi_datasets/gs_dataset.pkl
@@ -25,9 +27,18 @@ extractor/extracted_data/interactions/
 extractor/extracted_data/pharmacology/
 extractor/extracted_data/ttd/
 extractor/genes_names.pkl
+extractor/extractor/categories/
+extractor/extractor/classification/
+extractor/extractor/interactions/
+extractor/extractor/categories/pharmacology/
+extractor/extractor/ttd/
 feature_eng/atc.pkl
 feature_eng/drugs_without_mol_data.csv
 feature_eng/MODELS_CACHE/
+feature_eng/processed_drugs.pk
+feature_eng/feature_eng/atc_proc.py
+feature_eng/feature_eng/attr_binaryzer.py
+feature_eng/feature_eng/drug_food_int_classify.py
 fine-tune/adapters/
 fine-tune/llama.cpp/
 fine-tune/models/
