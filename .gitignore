@@ -58,3 +58,4 @@ old/
 papers/
 results/ddi/L2/saved_sets/
 fine-tune/.venv/
+.git.backup
