@@ -19,6 +19,7 @@ extractor/extracted_data/ddi_datasets/converted/
 extractor/extracted_data/ddi_datasets/compliant_datasets/*.pickle
 extractor/extracted_data/ddi_datasets/compliant_datasets/*.pkl
 extractor/extracted_data/ddi_datasets/compliant_datasets/gs_negatives.pkl copia
+extractor/extracted_data/ddi_datasets/compliant_datasets/gs_negatives.pkl*
 extractor/extracted_data/ddi_datasets/gs_dataset.pkl
 extractor/extracted_data/ddi_datasets/old/
 extractor/extracted_data/ddi_datasets/gs_segments/
