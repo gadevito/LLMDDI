@@ -1,5 +1,5 @@
 #
-# Open the original external datasets and convert the old pickle format to the binary pickle version
+# Open the original external datasets and print the content
 #
 import pickle
 import re
