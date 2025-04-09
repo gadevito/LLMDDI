@@ -1,0 +1,20 @@
+0000000000000000000000000000000000000000 cd54713e722f2e2349469f6991bab564a0c51e73 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740090647 +0100	commit (initial): first commit
+cd54713e722f2e2349469f6991bab564a0c51e73 0000000000000000000000000000000000000000 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740090652 +0100	Branch: renamed refs/heads/main to refs/heads/main
+cd54713e722f2e2349469f6991bab564a0c51e73 cd54713e722f2e2349469f6991bab564a0c51e73 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740090652 +0100	Branch: renamed refs/heads/main to refs/heads/main
+cd54713e722f2e2349469f6991bab564a0c51e73 f9723bdbfb7fba7e2b35c87a808160bc98951243 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740122974 +0100	commit: removed unused
+f9723bdbfb7fba7e2b35c87a808160bc98951243 accd63b02ab9ebfcf2f80aa05735f08f29f6be70 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740123078 +0100	commit: removed unused
+accd63b02ab9ebfcf2f80aa05735f08f29f6be70 c8ee6a1103664e2271a38db54de104bb401d791f gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740123201 +0100	commit: removed unused
+c8ee6a1103664e2271a38db54de104bb401d791f 9a28eca27b833fc2a614dc164015f74b80d62ac1 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740126846 +0100	commit: removed unused
+9a28eca27b833fc2a614dc164015f74b80d62ac1 d0210ee32c838c30f527180d15b5d081734ebcad gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740127001 +0100	commit: removed unused
+d0210ee32c838c30f527180d15b5d081734ebcad d09acf4dc614440135eb9718b9e9ecf230878d6e gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740129043 +0100	commit: added README
+d09acf4dc614440135eb9718b9e9ecf230878d6e 23fc55a69465231b8b3357d800ec7566bff06880 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1740129097 +0100	commit: added README
+23fc55a69465231b8b3357d800ec7566bff06880 dc62b883608c7e7d98b0594f7abbfc60450c20f1 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744226635 +0200	commit: added MSDAFL, few-shots, and full fine-tuning
+dc62b883608c7e7d98b0594f7abbfc60450c20f1 23fc55a69465231b8b3357d800ec7566bff06880 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744226804 +0200	reset: moving to HEAD~1
+23fc55a69465231b8b3357d800ec7566bff06880 dc62b883608c7e7d98b0594f7abbfc60450c20f1 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744226996 +0200	reset: moving to dc62b88
+dc62b883608c7e7d98b0594f7abbfc60450c20f1 e26b38de858ab9defc9edb687a745b643b6ab7cd gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744227752 +0200	commit: Track large files with Git LFS
+e26b38de858ab9defc9edb687a745b643b6ab7cd cb42db0ee77ec24c4cf848aa5b2c22ec687ad570 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744228439 +0200	commit: Track large files with Git LFS
+cb42db0ee77ec24c4cf848aa5b2c22ec687ad570 dfa4d1806240ad83cb200a48f7fe34a5a0436b99 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744229025 +0200	commit: Track large files with Git LFS
+dfa4d1806240ad83cb200a48f7fe34a5a0436b99 cb42db0ee77ec24c4cf848aa5b2c22ec687ad570 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744230615 +0200	reset: moving to HEAD~1
+cb42db0ee77ec24c4cf848aa5b2c22ec687ad570 7803b4c7df1d798584b09a724e643dd18c88e1ee gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744230767 +0200	commit: exclusion
+7803b4c7df1d798584b09a724e643dd18c88e1ee cb614fc6eb2eb3454eefc8c27d81bbd2c4f74d85 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744231362 +0200	commit: Rimuove LFS e aggiorna .gitignore
+cb614fc6eb2eb3454eefc8c27d81bbd2c4f74d85 c2bf656eef806312984a77750df523acf13295b7 gabriele de vito <gabrieledevito@mbpdigabriele2.lan> 1744232298 +0200	commit: updated bigger files
