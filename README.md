@@ -100,7 +100,7 @@ In particular, it contains the following scripts and files:
 - `best_config.py`, which finds out the best hyperparameter configurations for a specific LLM
 - `fine_tune.sh`, which starts fine-tuning a specific LLM.
 - `optuna_config.yaml`, contains the Optuna configuration for the optimization step.
-- _LLM Model_`-config`_epochs_`.yaml`, ontains the LoRA configuration for the _LLM Model_ and the number of _epochs_
+- _LLM Model_`-config`_epochs_`.yaml`, contains the LoRA configuration for the _LLM Model_ and the number of _epochs_
 
 ## L2 Model replication
 The `model` folder contains the source code to train and evaluate the L2 model proposed by Suyu et al.
