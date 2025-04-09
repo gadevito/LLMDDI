@@ -1,3 +1,2 @@
 extractor/extracted_data/ddi_datasets/MSDAFL/datasets/graphs.pt filter=lfs diff=lfs merge=lfs -text
 extractor/extracted_data/ddi_datasets/MSDAFL/datasets/node_features.npy filter=lfs diff=lfs merge=lfs -text
-extractor/extracted_data/ddi_datasets/compliant_datasets/gs_negatives.pkl[[:space:]]copia filter=lfs diff=lfs merge=lfs -text
