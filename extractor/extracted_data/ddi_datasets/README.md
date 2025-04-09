@@ -6,4 +6,3 @@ This folder contains the dataset processed for the experiments:
     - 1k, contains 1000 samples extracted from the drugbank dataset used for training the models
     - 20k, contains 20000 samples extracted from the drugbank dataset used for training the models
     - fine-tuning, contains the jsonl files, created using the 1k samples for fine-tuning LLMs
-    - with-emb, contains the datasets (i.e., drugbank and external datasets) with embeddings

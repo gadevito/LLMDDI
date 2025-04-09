@@ -11,6 +11,7 @@ The repository is organized as follows:
 | [`feature_eng`] | Contains the source code used for the feature engineering process. |
 | [`fine-tune`] | Contains the source code and configurations used to fine-tune LLMs. |
 | [`model`] | Contains the replication code for the Suyu et al. l2 regression model. |
+| [`MSDAFL`] | Contains the replication code for the Chao et al. MSDAFL deep learning model. |
 | [`results`]   | Contains the empirical evaluation results. |
 
 
@@ -65,11 +66,16 @@ Specifically, it contains the following scripts:
     - `prep_gs_ddi_Gemma_ft.py`, prepares the jsonl files for Gemma2 fine-tuning.
     - `prep_gs_ddi_DS_ft.py`, prepares the jsonl files for Deepseek r1 distilled models fine-tuning.
     - `fine_tune_GPT.py`, lauches the fine-tuning for GPT-4
-    - `gs_ddi_GPT_eval.py`, evaluates the performance of the GPT-4 model on a secific dataset.
-    - `gs_ddi_Gemini_eval.py`, evaluates the performance of the Gemini model on a secific dataset.
-    - `gs_ddi_Open_LLM_eval.py`, evaluates the performance of Open LLM models on a secific dataset.
-    - `gs_ddi_Claude_eval.py`, evaluates the performance of the Claude model on a secific dataset.
+    - `gs_ddi_GPT_eval.py`, evaluates the zero-shot/fine-tuning performance of the GPT-4 model on a specific dataset.
+    - `gs_ddi_Gemini_eval.py`, evaluates the performance of the Gemini model on a specific dataset.
+    - `gs_ddi_Open_LLM_eval.py`, evaluates the zero-shot/fine-tuning performance of Open LLM models on a specific dataset.
+    - `gs_ddi_Claude_eval.py`, evaluates the performance of the Claude model on a specific dataset.
     - `analyze_gs_ddi_LLM.py`, compute metrics on the evaluation performed using eval scripts.
+    - `fs`, which contains the few-shots scripts:
+        - `gs_ddi_GPT_eval.py`, evaluates the few-shot performance of the GPT-4 model on a specific dataset.
+        - `gs_ddi_Gemini_eval.py`, evaluates the few-shot performance of the Gemini model on a specific dataset.
+        - `gs_ddi_Open_LLM_eval.py`, evaluates the few-shot performance of Open LLM models on a specific dataset.
+        - `gs_ddi_Claude_eval.py`, evaluates the few-shot performance of the Claude model on a specific dataset.
 
 To use the scripts, you need to proceed as follows:
 
@@ -116,10 +122,37 @@ Go to the `model` folder and run
 poetry install 
 ```
 
+## MSDAFL Model replication
+The `MSDAFL` folder contains the source code to create the datasets, train, and evaluate the MSDAFL model proposed by Chao et al.
+Specifically, it contains the following scripts:
+- `data_prep`: 
+    - `1_create_dict.py` which creates the drug dictionary for the datsets in a given folder 
+    - `2_create_smiles.py` which creates the JSON file containing the smiles of the drug dictionary create with the `1_create_dict.py` script
+    - `3_prepare_graph.py` which create the graph for the smiles created with the `2_create_smiles.py` script
+    - `4_create_datasets.py` which create the JSON version required by MSDAFL to train, validate, and test the model
+- `model`, which contains the original codes developed by Chao et al. and the `ddi_train_msdafl.py` script needed to train, validate, and test the MSDAFL model on the datasets (also external ones) of our study.
+
+To use the scripts, you need to proceed as follows:
+
+### **SETUP**
+### Step 1: Download the repository
+Download the repository and go to the `MSDAFL` folder. 
+
+### Step 2: Set up virtual environment and install packages
+Install poetry.
+Go to the `msdafl` folder and run
+
+```
+poetry install 
+```
+
+
 ## Results
 The `results` folder contains the results for the the experiments.
 In particular, it contains the following:
 - `fine-tuning`, contains the results for the LLM fine-tuned versions.
 - `L2`, contains the results for the L2 model.
+- `MSDAFL`, contains the results for the MSDAFL model.
 - `zero-shot`, contains the results for the zero-shot experiment with LLMs.
+- `few-shot`, contains the results for the few-shot experiments with LLMs.
 

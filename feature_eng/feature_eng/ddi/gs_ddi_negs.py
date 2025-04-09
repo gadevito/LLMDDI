@@ -133,6 +133,15 @@ def main(input_pickle, output_pickle, known_ddi, neg_samples):
     # Load the DrugBank data from the pickle file
     drugs = loadPickle(input_pickle)
 
+    # Create the list to store the final dataset data 
+    dataset = []
+    negs_dict = set()
+    try:
+        dataset = loadPickle(output_pickle)
+        negs_dict = {(item[0], item[1]) for item in dataset}
+    except Exception as es:
+        dataset = []
+
     print("Total number of drugs:", len(drugs))
 
     for drug in drugs:
@@ -210,37 +219,37 @@ def main(input_pickle, output_pickle, known_ddi, neg_samples):
     
     all_drug_org_dict =get_organisms(all_drugs)
 
-    # Create the list to store the final dataset data 
-    dataset = []
+
     # Generate true negatives 
     print(f"Total number of SAMPLES: {neg_samples}" )
     with tqdm(total= neg_samples, desc="Generating negatives") as pbar:
         while len(dataset) < neg_samples:
             drug1_id, drug2_id = random.sample(all_drug_ids, 2)
             if (drug1_id, drug2_id) not in all_known_interactions and (drug2_id, drug1_id) not in all_known_interactions:
-                drug1 = all_drugs_dict[drug1_id]
-                drug2 = all_drugs_dict[drug2_id]
-                target_vector1 = create_target_vector(drug1, all_human_genes)
-                target_vector2 = create_target_vector(drug2, all_human_genes)
-                drug1_organism = all_drug_org_dict[drug1_id]
-                drug2_organism = all_drug_org_dict[drug2_id]
-                enc_drug1_organism = encode_organism(drug1_organism)
-                enc_drug2_organism = encode_organism(drug2_organism)
-                dataset.append((
-                    drug1_id,
-                    drug2_id,
-                    drug1.get('calc_prop_smiles', ''),
-                    drug2.get('calc_prop_smiles', ''),
-                    drug1_organism,
-                    drug2_organism,
-                    enc_drug1_organism,
-                    enc_drug2_organism,
-                    *target_vector1,
-                    *target_vector2,
-                    0  # True negative
-                ))
+                if (drug1_id, drug2_id) not in negs_dict and (drug2_id, drug1_id) not in negs_dict:
+                    drug1 = all_drugs_dict[drug1_id]
+                    drug2 = all_drugs_dict[drug2_id]
+                    target_vector1 = create_target_vector(drug1, all_human_genes)
+                    target_vector2 = create_target_vector(drug2, all_human_genes)
+                    drug1_organism = all_drug_org_dict[drug1_id]
+                    drug2_organism = all_drug_org_dict[drug2_id]
+                    enc_drug1_organism = encode_organism(drug1_organism)
+                    enc_drug2_organism = encode_organism(drug2_organism)
+                    dataset.append((
+                        drug1_id,
+                        drug2_id,
+                        drug1.get('calc_prop_smiles', ''),
+                        drug2.get('calc_prop_smiles', ''),
+                        drug1_organism,
+                        drug2_organism,
+                        enc_drug1_organism,
+                        enc_drug2_organism,
+                        *target_vector1,
+                        *target_vector2,
+                        0  # True negative
+                    ))
 
-                pbar.update(1)
+                    pbar.update(1)
 
     num_negatives = len(dataset)
     print(f"Total number of TRUE NEGATIVE: {num_negatives}")

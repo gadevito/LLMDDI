@@ -25,6 +25,7 @@ extractor/extracted_data/ddi_datasets/old/
 extractor/extracted_data/ddi_datasets/samples/20k/
 extractor/extracted_data/ddi_datasets/samples/with-emb/training_gs_set_20000.pkl
 extractor/extracted_data/ddi_datasets/samples/with-emb/gs_dataset_20000.pkl
+extractor/extracted_data/ddi_datasets/MSDAFL/external/
 extractor/extracted_data/interactions/
 extractor/extracted_data/pharmacology/
 extractor/extracted_data/ttd/
