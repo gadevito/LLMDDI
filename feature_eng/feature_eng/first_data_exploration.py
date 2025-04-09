@@ -1,3 +1,4 @@
+# Exlore the pickle dataset created from the drugbank xml file and print statistics
 import pickle
 import pandas as pd
 import seaborn as sns

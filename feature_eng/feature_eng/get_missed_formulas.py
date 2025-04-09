@@ -1,3 +1,4 @@
+# Use external databases to get missing formulas (inchi, SMILES, weight, etc.)
 import pandas as pd
 import pubchempy as pcp
 import argparse
