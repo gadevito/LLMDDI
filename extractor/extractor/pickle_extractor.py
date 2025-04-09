@@ -1,3 +1,4 @@
+# Open the drugbank xml file and create a pickle file
 import xml.etree.ElementTree as ET
 import pickle
 import argparse
@@ -7,13 +8,13 @@ from rdkit.Chem import Descriptors
 # Calculate logp for smiles when missing
 def calculate_logp(smiles):
     """
-    Calcola il logP utilizzando RDKit dato un SMILES
+    Calculate logP using RDKit for a given SMILES
     """
     try:
-        # Crea una molecola RDKit dal SMILES
+        # Create an RDKit molecule for the given SMILES
         mol = Chem.MolFromSmiles(smiles)
         if mol is not None:
-            # Calcola il logP
+            # Calculate logP
             logp = Descriptors.MolLogP(mol)
             return logp
         return None
