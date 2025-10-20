@@ -4,5 +4,6 @@ This folder contains the dataset processed for the experiments:
 - full-known-interactions, contains the full ddi reported in all datasets, drugbank and external datasets
 - samples, contains the dataset samples extracted from the drugbank dataset. It also contains the following folders:
     - 1k, contains 1000 samples extracted from the drugbank dataset used for training the models
+    - 2k, contains 2000 samples extracted from the drugbank dataset used for training PHI3.5 27B on more examples
     - 20k, contains 20000 samples extracted from the drugbank dataset used for training the models
     - fine-tuning, contains the jsonl files, created using the 1k samples for fine-tuning LLMs
