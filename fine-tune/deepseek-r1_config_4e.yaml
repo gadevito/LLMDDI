@@ -6,7 +6,7 @@ lora_layers: 28
 batch_size: 8
 iters: 680
 val_batches: 100
-learning_rate: 0.00021589182820107126 # new learning rate
+learning_rate: 2e-4 # new learning rate
 steps_per_report: 10
 steps_per_eval: 50
 resume_adapter_file: null
@@ -20,8 +20,8 @@ lora_parameters:
   keys: ["self_attn.o_proj", "self_attn.q_proj", "self_attn.k_proj", "self_attn.v_proj", "mlp.gate_proj", "mlp.up_proj", "mlp.down_proj"]
   rank: 32
   alpha: 32
-  scale: 4.212755868632525
-  dropout: 0.014623080128583293
+  scale: 4.0
+  dropout: 0.01
 lr_schedule:
     name: cosine_decay
     warmup: 5

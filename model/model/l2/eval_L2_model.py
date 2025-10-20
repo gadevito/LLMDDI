@@ -6,7 +6,7 @@
 import pickle
 import numpy as np
 from sklearn.linear_model import LogisticRegressionCV
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score, matthews_corrcoef, accuracy_score, confusion_matrix
+from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score, matthews_corrcoef, accuracy_score, confusion_matrix, classification_report
 import argparse
 import joblib
 from sklearn.model_selection import StratifiedKFold
@@ -99,6 +99,10 @@ def main(validation_file, model_file, one_two_cls):
     print(f"ROC-AUC (val_prob): {auc:.4f}")
     print(f"ROC-AUC (val): {roc_auc:.4f}")
     print(f"Matthews Correlation Coefficient (MCC): {mcc:.4f}")
+
+
+    report = classification_report(y_val, y_val_pred)
+    print("\nClassification Report:\n", report)
 
     # Print predictions
     #print("\nPredictions:")

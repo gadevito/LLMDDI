@@ -1,0 +1,65 @@
+================================================================================
+CONFIDENCE CALIBRATION ANALYSIS
+Dataset: OSCAR
+================================================================================
+
+PREDICTION OUTCOMES
+--------------------------------------------------------------------------------
+TP: 1832 ( 44.6%)
+TN: 1896 ( 46.2%)
+FP:  156 (  3.8%)
+FN:  220 (  5.4%)
+Total: 4104
+
+CALIBRATION ANALYSIS
+--------------------------------------------------------------------------------
+Correct predictions (n=3728):
+  Mean confidence:  0.9831 (SD: 0.0837)
+  Median:           0.9999
+
+Incorrect predictions (n=376):
+  Mean confidence:  0.8816 (SD: 0.2004)
+  Median:           0.9867
+
+Statistical comparison (Correct vs Incorrect):
+  Test: Mann-Whitney U (one-sided: correct > incorrect)
+  U statistic: 1180689.50
+  P-value: 9.95e-107
+  Effect size (rank-biserial r): +0.685
+  Interpretation: large
+  Significant at α=0.001: ✓ Yes
+
+TRUE POSITIVES vs FALSE POSITIVES (Critical for Label Noise)
+--------------------------------------------------------------------------------
+True Positives (n=1832):
+  Mean:  0.9710 (SD: 0.1105)
+
+False Positives (n=156):
+  Mean:  0.9308 (SD: 0.1698)
+
+Statistical comparison (TP vs FP):
+  Test: Mann-Whitney U (one-sided: TP > FP)
+  P-value: 1.37e-10
+  Effect size (r): +0.304 (medium)
+  Significant at α=0.001: ✓ Yes
+
+================================================================================
+SUGGESTED TEXT FOR PAPER
+================================================================================
+
+To verify that high sensitivity reflects genuine discriminative ability rather
+than uniform positive bias, we analyzed GPT-4o's prediction confidence via
+log-probabilities on the OSCAR. Correct predictions exhibited
+significantly higher confidence (mean logprob: 0.98, SD: 0.08)
+than incorrect predictions (mean: 0.88, SD: 0.20);
+Mann-Whitney U test, p < 0.001, effect size r = +0.68
+(large effect).
+
+Critically, true positive predictions showed higher confidence
+(mean logprob: 0.97) than false positive predictions
+(mean: 0.93), with the difference
+being statistically significant (Mann-Whitney U, p < 0.001,
+r = +0.30, medium effect). This calibration
+pattern indicates the model assigns high confidence selectively to genuine
+interactions rather than indiscriminately to all positive predictions.
+

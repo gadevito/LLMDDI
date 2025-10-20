@@ -1,0 +1,40 @@
+=== Training/Prediction Overlap Analysis (DDI) ===
+
+Training summary:
+- Unique drugs in training: 1554
+- Ordered pairs in training: 1000
+- Unordered pairs in training: 1000
+
+Prediction overlap counts:
+- TOTAL_PRED_ROWS: 238
+- NO_ENTITY_OVERLAP: 88
+- ONE_ENTITY_OVERLAP: 106
+- TWO_ENTITY_OVERLAP: 44
+- EXACT_ORDERED_PAIR_OVERLAP: 0
+- EXACT_UNORDERED_PAIR_OVERLAP: 0
+- BOTH_KNOWN_NEW_PAIR: 44
+- UNORDERED_SEEN_NEW_DIRECTION: 0
+
+Group metrics (n, accuracy, precision, sensitivity, f1, tp, tn, fp, fn):
+ALL: n=238 acc=0.908 prec=0.865 sens=0.966 f1=0.913 tp=115 tn=101 fp=18 fn=4
+NO_ENTITY_OVERLAP: n=88 acc=0.932 prec=0.848 sens=0.966 f1=0.903 tp=28 tn=54 fp=5 fn=1
+ONE_ENTITY_OVERLAP: n=106 acc=0.877 prec=0.810 sens=0.959 f1=0.879 tp=47 tn=46 fp=11 fn=2
+TWO_ENTITY_OVERLAP: n=44 acc=0.932 prec=0.952 sens=0.976 f1=0.964 tp=40 tn=1 fp=2 fn=1
+NO_UNORDERED_PAIR_OVERLAP: n=238 acc=0.908 prec=0.865 sens=0.966 f1=0.913 tp=115 tn=101 fp=18 fn=4
+NO_ORDERED_PAIR_OVERLAP: n=238 acc=0.908 prec=0.865 sens=0.966 f1=0.913 tp=115 tn=101 fp=18 fn=4
+EXACT_ORDERED_PAIR_OVERLAP: n=0 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=0 fn=0
+EXACT_UNORDERED_PAIR_OVERLAP: n=0 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=0 fn=0
+BOTH_KNOWN_NEW_PAIR: n=44 acc=0.932 prec=0.952 sens=0.976 f1=0.964 tp=40 tn=1 fp=2 fn=1
+UNORDERED_SEEN_NEW_DIRECTION: n=0 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=0 fn=0
+
+Interpretation
+- This section interprets the overlap and subgroup metrics to assess potential leakage and true generalization.
+- No pair overlap detected (ordered or unordered). Pair-level leakage is unlikely.
+- Entity overlap distribution: none=88 (37.0%), one=106 (44.5%), both=44 (18.5%).
+- Entity generalization: NO_ENTITY_OVERLAP F1=0.903 vs TWO_ENTITY_OVERLAP F1=0.964 (0.061 lower).
+- Pair memorization (unordered): NO_UNORDERED_PAIR_OVERLAP F1=0.913 vs EXACT_UNORDERED_PAIR_OVERLAP F1=0.000 (0.913 higher).
+- Pair memorization (ordered): NO_ORDERED_PAIR_OVERLAP F1=0.913 vs EXACT_ORDERED_PAIR_OVERLAP F1=0.000 (0.913 higher).
+  Interpretation: F1 on completely new entities is close to overall F1; model shows true entity-level generalization.
+  Interpretation: No unordered-pair overlaps; pair-level leakage (as a set) is unlikely.
+- Both-known-but-new-pair F1=0.964.
+  Interpretation: Good compositional generalization: when both drugs are known but combined in a new pair, performance remains strong.

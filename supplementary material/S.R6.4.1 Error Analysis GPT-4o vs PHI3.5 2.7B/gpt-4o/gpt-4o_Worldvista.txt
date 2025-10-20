@@ -1,0 +1,111 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:57:45
+Model: GPT-4o
+Dataset: Worldvista
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.877
+   Precision: 0.906
+   Sensitivity: 0.841
+   F1-Score: 0.873
+   Total samples: 3026
+   TP: 1273, TN: 1381, FP: 132, FN: 240
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 132 cases
+     Avg combined SMILES length: 96.2 ± 64.4
+   False Negatives: 240 cases
+     Avg combined SMILES length: 110.0 ± 77.2
+   True Positives: 1273 cases
+     Avg combined SMILES length: 140.7 ± 120.9
+   True Negatives: 1381 cases
+     Avg combined SMILES length: 115.1 ± 68.1
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 132 cases
+     Avg combined gene targets: 8.1 ± 9.5
+   False Negatives: 240 cases
+     Avg combined gene targets: 19.6 ± 21.3
+   True Positives: 1273 cases
+     Avg combined gene targets: 12.5 ± 11.0
+   True Negatives: 1381 cases
+     Avg combined gene targets: 5.3 ± 10.1
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 103 cases
+     Humans - Human immunodeficiency virus 1: 3 cases
+     Escherichia coli (strain K12) - Humans: 2 cases
+     SARS-CoV-2 - Humans: 2 cases
+     Escherichia coli - Humans: 2 cases
+   Top false negatives organism pairs:
+     Humans - Humans: 220 cases
+     Escherichia coli (strain K12) - Escherichia coli (strain K12): 4 cases
+     Staphylococcus aureus - Staphylococcus aureus: 3 cases
+     Rat - Rat: 3 cases
+     HHV-1 - HHV-1: 2 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Phenylephrine: 1.000 error rate
+     (6/6 errors: 0 FP, 6 FN)
+   Pseudoephedrine: 1.000 error rate
+     (3/3 errors: 1 FP, 2 FN)
+   Fenofibrate: 1.000 error rate
+     (2/2 errors: 0 FP, 2 FN)
+   Drospirenone: 1.000 error rate
+     (2/2 errors: 0 FP, 2 FN)
+   Dexketoprofen: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Alvocidib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Metformin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Spectinomycin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Cabazitaxel: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Serdexmethylphenidate: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Agkistrodon piscivorus antivenin + Dexketoprofen
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+     2. Zucapsaicin + Levobunolol
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+     3. Alvocidib + Cidofovir
+        Organisms: Humans - HHV-5
+        Gene targets: 11 - 1
+     4. Metformin + Glutamic acid
+        Organisms: Humans - Humans
+        Gene targets: 3 - 63
+     5. Spectinomycin + Cabazitaxel
+        Organisms: Escherichia coli (strain K12) - Humans
+        Gene targets: 1 - 1
+   False Negatives (missed real interactions):
+     1. Paroxetine + Levomenthol
+        Organisms: Humans - Humans
+        Gene targets: 38 - 13
+     2. Levomenthol + Levomenthol
+        Organisms: Humans - Humans
+        Gene targets: 13 - 13
+     3. Haloperidol + Haloperidol
+        Organisms: Humans - Humans
+        Gene targets: 18 - 18
+     4. Chlorpromazine + Chlorpromazine
+        Organisms: Humans - Humans
+        Gene targets: 32 - 32
+     5. Piretanide + Piretanide
+        Organisms: Humans - Humans
+        Gene targets: 1 - 1
+
+7. SUMMARY INSIGHTS:
+   - Model tends to under-predict interactions (more false negatives than false positives)
+   - High precision but lower sensitivity - conservative approach, might miss some interactions
+
+Report generation completed successfully.
+============================================================

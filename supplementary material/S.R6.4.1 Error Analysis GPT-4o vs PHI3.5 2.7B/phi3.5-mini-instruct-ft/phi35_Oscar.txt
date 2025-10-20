@@ -1,0 +1,111 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:03:20
+Model: Phi-3.5 2.7B
+Dataset: Oscar
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.902
+   Precision: 0.872
+   Sensitivity: 0.942
+   F1-Score: 0.905
+   Total samples: 4104
+   TP: 1932, TN: 1768, FP: 284, FN: 120
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 284 cases
+     Avg combined SMILES length: 116.9 ± 103.1
+   False Negatives: 120 cases
+     Avg combined SMILES length: 73.0 ± 25.9
+   True Positives: 1932 cases
+     Avg combined SMILES length: 108.2 ± 37.0
+   True Negatives: 1768 cases
+     Avg combined SMILES length: 111.1 ± 60.3
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 284 cases
+     Avg combined gene targets: 8.1 ± 10.3
+   False Negatives: 120 cases
+     Avg combined gene targets: 9.7 ± 7.3
+   True Positives: 1932 cases
+     Avg combined gene targets: 10.8 ± 10.1
+   True Negatives: 1768 cases
+     Avg combined gene targets: 4.9 ± 8.0
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 179 cases
+     Humans - Escherichia coli (strain K12): 12 cases
+     Escherichia coli (strain K12) - Humans: 10 cases
+     SARS-CoV-2 - Humans: 4 cases
+     Humans - None: 3 cases
+   Top false negatives organism pairs:
+     Humans - Humans: 96 cases
+     Humans - Streptococcus pneumoniae (strain ATCC BAA-255 / R6): 7 cases
+     Humans - Staphylococcus aureus: 5 cases
+     Humans - Escherichia coli: 4 cases
+     Humans - Escherichia coli (strain K12): 2 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Aluminium monostearate: 1.000 error rate
+     (85/85 errors: 0 FP, 85 FN)
+   Pseudoephedrine: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Quinidine: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Methylergometrine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Bupropion: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Propylene glycol: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   LY-294002: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Ponatinib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   MK-0668: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Protriptyline: 1.000 error rate
+     (3/3 errors: 3 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Methylergometrine + Clofazimine
+        Organisms: Humans - Humans
+        Gene targets: 2 - 2
+     2. Bupropion + Propylene glycol
+        Organisms: Humans - Clostridium butyricum
+        Gene targets: 4 - 1
+     3. LY-294002 + Ponatinib
+        Organisms: Humans - Humans
+        Gene targets: 2 - 15
+     4. MK-0668 + Protriptyline
+        Organisms: Humans - Humans
+        Gene targets: 2 - 2
+     5. Cefradine + Romosozumab
+        Organisms: Escherichia coli (strain K12) - Humans
+        Gene targets: 1 - 1
+   False Negatives (missed real interactions):
+     1. Aluminium monostearate + Celecoxib
+        Organisms: Humans - Humans
+        Gene targets: 4 - 6
+     2. Aluminium monostearate + Phenylbutazone
+        Organisms: Humans - Humans
+        Gene targets: 4 - 3
+     3. Aluminium monostearate + Pseudoephedrine
+        Organisms: Humans - Humans
+        Gene targets: 4 - 21
+     4. Choline + Mezlocillin
+        Organisms: Humans - Escherichia coli (strain K12)
+        Gene targets: 8 - 3
+     5. Aluminium monostearate + Timolol
+        Organisms: Humans - Enterobacteria phage T4
+        Gene targets: 4 - 3
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

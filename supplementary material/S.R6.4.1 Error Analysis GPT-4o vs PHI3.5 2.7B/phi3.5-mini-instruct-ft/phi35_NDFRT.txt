@@ -1,0 +1,84 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:01:09
+Model: Phi-3.5 2.7B
+Dataset: NDFRT
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.958
+   Precision: 0.922
+   Sensitivity: 1.000
+   F1-Score: 0.960
+   Total samples: 238
+   TP: 119, TN: 109, FP: 10, FN: 0
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 10 cases
+     Avg combined SMILES length: 189.7 ± 129.7
+   True Positives: 119 cases
+     Avg combined SMILES length: 127.7 ± 65.5
+   True Negatives: 109 cases
+     Avg combined SMILES length: 113.1 ± 47.3
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 10 cases
+     Avg combined gene targets: 14.8 ± 17.7
+   True Positives: 119 cases
+     Avg combined gene targets: 9.8 ± 11.2
+   True Negatives: 109 cases
+     Avg combined gene targets: 4.4 ± 5.6
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 7 cases
+     Escherichia coli (strain K12) - Humans: 1 cases
+     Staphylococcus aureus - Escherichia coli (strain K12): 1 cases
+     Baker's yeast - Humans: 1 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Nintedanib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Bisphenol Z: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   S-(2-{[N-(2-HYDROXY-4-{[HYDROXY(OXIDO)PHOSPHINO]OXY}-3,3-DIMETHYLBUTANOYL)-BETA-ALANYL]AMINO}ETHYL) HEPTANETHIOATE: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Olmesartan: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Cefpiramide: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Platensimycin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Thiopental: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   (R)-minalrestat: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Hydroxocobalamin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Pyridoxal phosphate: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Nintedanib + Bisphenol Z
+        Organisms: Humans - Humans
+        Gene targets: 12 - 1
+     2. S-(2-{[N-(2-HYDROXY-4-{[HYDROXY(OXIDO)PHOSPHINO]OXY}-3,3-DIMETHYLBUTANOYL)-BETA-ALANYL]AMINO}ETHYL) HEPTANETHIOATE + Olmesartan
+        Organisms: Escherichia coli (strain K12) - Humans
+        Gene targets: 1 - 1
+     3. Cefpiramide + Platensimycin
+        Organisms: Staphylococcus aureus - Escherichia coli (strain K12)
+        Gene targets: 7 - 1
+     4. Thiopental + (R)-minalrestat
+        Organisms: Humans - Humans
+        Gene targets: 12 - 1
+     5. Hydroxocobalamin + Pyridoxal phosphate
+        Organisms: Humans - Humans
+        Gene targets: 7 - 53
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

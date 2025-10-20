@@ -345,6 +345,18 @@ class SimilaritySearchSelector:
         result = "\n\n".join(res)
         return "** Examples **\n\n" + result
 
+    def format_examples_hits(self,examples):
+        res = [self.example_formatter_hits(f, idx+1) for idx, f in enumerate(reversed(examples))]
+
+        result = "\n\n".join(res)
+        return "** Examples **\n\n" + result
+
+    def format_examples_abalation(self,examples, features):
+        res = [self.example_formatter_ablation(f, idx+1, features) for idx, f in enumerate(reversed(examples))]
+
+        result = "\n\n".join(res)
+        return "** Examples **\n\n" + result
+
     # Format a single example
     def example_formatter(self, example, idx):
 
@@ -371,6 +383,121 @@ class SimilaritySearchSelector:
                                             genes2=", ".join(example["genes2"]),
                                             classification="interaction" if example["target"] == 1 else "no interaction"
                                             )
+        return formatted_example
+
+
+    # Format a single example
+    def example_formatter_ablation(self, example, idx, features):
+
+        if features == 1: # ONLY SMILES
+            template = """{idx}. Drug1: {drug1}
+    SMILES for drug1: {smiles1}
+
+    Drug2: {drug2}
+    SMILES for drug2: {smiles2}
+
+    CLASSIFICATION: {classification}"""
+
+            formatted_example = template.format(idx=idx,
+                                                drug1=example["drug_name1"],
+                                                smiles1=example["smiles1"],
+                                                drug2=example["drug_name2"],
+                                                smiles2=example["smiles2"],
+                                                classification="interaction" if example["target"] == 1 else "no interaction"
+                                                )
+        elif features == 2: # Only Genes
+            template = """{idx}. Drug1: {drug1}
+    Genes targeted by drug1: {genes1}
+
+    Drug2: {drug2}
+    Genes targeted by drug2: {genes2}
+
+    CLASSIFICATION: {classification}"""
+
+            formatted_example = template.format(idx=idx,
+                                                drug1=example["drug_name1"],
+                                                genes1=", ".join(example["genes1"]),
+                                                drug2=example["drug_name2"],
+                                                genes2=", ".join(example["genes2"]),
+                                                classification="interaction" if example["target"] == 1 else "no interaction"
+                                                )
+        elif features == 3: # Only Orgs
+            template = """{idx}. Drug1: {drug1}
+    Organism targeted by drug1: {org1}
+
+    Drug2: {drug2}
+    Organism targeted by drug2: {org2}
+
+    CLASSIFICATION: {classification}"""
+
+            formatted_example = template.format(idx=idx,
+                                                drug1=example["drug_name1"],
+                                                org1=example["org1"],
+                                                drug2=example["drug_name2"],
+                                                org2=example["org2"],
+                                                classification="interaction" if example["target"] == 1 else "no interaction"
+                                                )
+        elif features == 4: # Only SMILES + genes
+            template = """{idx}. Drug1: {drug1}
+    SMILES for drug1: {smiles1}
+    Genes targeted by drug1: {genes1}
+
+    Drug2: {drug2}
+    SMILES for drug2: {smiles2}
+    Genes targeted by drug2: {genes2}
+
+    CLASSIFICATION: {classification}"""
+
+            formatted_example = template.format(idx=idx,
+                                                drug1=example["drug_name1"],
+                                                smiles1=example["smiles1"],
+                                                genes1=", ".join(example["genes1"]),
+                                                drug2=example["drug_name2"],
+                                                smiles2=example["smiles2"],
+                                                genes2=", ".join(example["genes2"]),
+                                                classification="interaction" if example["target"] == 1 else "no interaction"
+                                                )
+        elif features == 5: # Only SMILES + orgs
+            template = """{idx}. Drug1: {drug1}
+    SMILES for drug1: {smiles1}
+    Organism targeted by drug1: {org1}
+
+    Drug2: {drug2}
+    SMILES for drug2: {smiles2}
+    Organism targeted by drug2: {org2}
+
+    CLASSIFICATION: {classification}"""
+
+            formatted_example = template.format(idx=idx,
+                                                drug1=example["drug_name1"],
+                                                smiles1=example["smiles1"],
+                                                org1=example["org1"],
+                                                drug2=example["drug_name2"],
+                                                smiles2=example["smiles2"],
+                                                org2=example["org2"],
+                                                classification="interaction" if example["target"] == 1 else "no interaction"
+                                                )
+        elif features == 6: # Only genes + orgs
+            template = """{idx}. Drug1: {drug1}
+    Organism targeted by drug1: {org1}
+    Genes targeted by drug1: {genes1}
+
+    Drug2: {drug2}
+    Organism targeted by drug2: {org2}
+    Genes targeted by drug2: {genes2}
+
+    CLASSIFICATION: {classification}"""
+
+            formatted_example = template.format(idx=idx,
+                                                drug1=example["drug_name1"],
+                                                org1=example["org1"],
+                                                genes1=", ".join(example["genes1"]),
+                                                drug2=example["drug_name2"],
+                                                org2=example["org2"],
+                                                genes2=", ".join(example["genes2"]),
+                                                classification="interaction" if example["target"] == 1 else "no interaction"
+                                                )
+
         return formatted_example
 
     # Return the detailed similarity results
@@ -421,6 +548,35 @@ class SimilaritySearchSelector:
         
         return similarity
     
+
+    # Format a single example
+    def example_formatter_hits(self, example, idx):
+
+        template = """{idx}. Drug1: {drug1}
+   Genes targeted by drug1: {genes1}
+   Organism targeted by drug1: {org1}
+   SMILES for drug1: {smiles1}
+
+   Drug2: {drug2}
+   Genes targeted by drug2: {genes2}
+   Organism targeted by drug2: {org2}
+   SMILES for drug2: {smiles2}
+
+   CLASSIFICATION: {classification}"""
+
+        formatted_example = template.format(idx=idx,
+                                            drug1=example["drug_name1"],
+                                            smiles1=example["smiles1"],
+                                            org1=example["org1"],
+                                            genes1=", ".join(example["genes1"]),
+                                            drug2=example["drug_name2"],
+                                            smiles2=example["smiles2"],
+                                            org2=example["org2"],
+                                            genes2=", ".join(example["genes2"]),
+                                            classification="interaction" if example["target"] == 1 else "no interaction"
+                                            )
+        return formatted_example
+
 
 if __name__ == "__main__":
 

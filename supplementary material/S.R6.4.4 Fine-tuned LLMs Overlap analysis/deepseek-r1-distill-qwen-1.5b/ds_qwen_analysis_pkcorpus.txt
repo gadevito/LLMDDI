@@ -1,0 +1,40 @@
+=== Training/Prediction Overlap Analysis (DDI) ===
+
+Training summary:
+- Unique drugs in training: 1554
+- Ordered pairs in training: 1000
+- Unordered pairs in training: 1000
+
+Prediction overlap counts:
+- TOTAL_PRED_ROWS: 4
+- NO_ENTITY_OVERLAP: 1
+- ONE_ENTITY_OVERLAP: 2
+- TWO_ENTITY_OVERLAP: 1
+- EXACT_ORDERED_PAIR_OVERLAP: 0
+- EXACT_UNORDERED_PAIR_OVERLAP: 0
+- BOTH_KNOWN_NEW_PAIR: 1
+- UNORDERED_SEEN_NEW_DIRECTION: 0
+
+Group metrics (n, accuracy, precision, sensitivity, f1, tp, tn, fp, fn):
+ALL: n=4 acc=0.750 prec=0.667 sens=1.000 f1=0.800 tp=2 tn=1 fp=1 fn=0
+NO_ENTITY_OVERLAP: n=1 acc=1.000 prec=1.000 sens=1.000 f1=1.000 tp=1 tn=0 fp=0 fn=0
+ONE_ENTITY_OVERLAP: n=2 acc=1.000 prec=1.000 sens=1.000 f1=1.000 tp=1 tn=1 fp=0 fn=0
+TWO_ENTITY_OVERLAP: n=1 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=1 fn=0
+NO_UNORDERED_PAIR_OVERLAP: n=4 acc=0.750 prec=0.667 sens=1.000 f1=0.800 tp=2 tn=1 fp=1 fn=0
+NO_ORDERED_PAIR_OVERLAP: n=4 acc=0.750 prec=0.667 sens=1.000 f1=0.800 tp=2 tn=1 fp=1 fn=0
+EXACT_ORDERED_PAIR_OVERLAP: n=0 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=0 fn=0
+EXACT_UNORDERED_PAIR_OVERLAP: n=0 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=0 fn=0
+BOTH_KNOWN_NEW_PAIR: n=1 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=1 fn=0
+UNORDERED_SEEN_NEW_DIRECTION: n=0 acc=0.000 prec=0.000 sens=0.000 f1=0.000 tp=0 tn=0 fp=0 fn=0
+
+Interpretation
+- This section interprets the overlap and subgroup metrics to assess potential leakage and true generalization.
+- No pair overlap detected (ordered or unordered). Pair-level leakage is unlikely.
+- Entity overlap distribution: none=1 (25.0%), one=2 (50.0%), both=1 (25.0%).
+- Entity generalization: NO_ENTITY_OVERLAP F1=0.000 vs TWO_ENTITY_OVERLAP F1=1.000 (1.000 lower).
+- Pair memorization (unordered): NO_UNORDERED_PAIR_OVERLAP F1=0.800 vs EXACT_UNORDERED_PAIR_OVERLAP F1=0.000 (0.800 higher).
+- Pair memorization (ordered): NO_ORDERED_PAIR_OVERLAP F1=0.800 vs EXACT_ORDERED_PAIR_OVERLAP F1=0.000 (0.800 higher).
+  Interpretation: Much higher F1 when both entities are known than when both are new suggests reliance on entity familiarity; consider an entity-disjoint evaluation.
+  Interpretation: No unordered-pair overlaps; pair-level leakage (as a set) is unlikely.
+- Both-known-but-new-pair F1=1.000.
+  Interpretation: Good compositional generalization: when both drugs are known but combined in a new pair, performance remains strong.

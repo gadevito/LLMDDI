@@ -81,15 +81,35 @@ def classify(drug, model="claude-3-5-sonnet-20241022",backoff_factor=1.0):
             genes2 =", ".join(drug['genes2'])
             msg =[]
             msg.append({"role": "user", "content":  USER_DDI_CLASSIFICATION.format(drug1=drug1, smiles1=smiles1, org1=org1, genes1=genes1, drug2=drug2, smiles2=smiles2, org2=org2, genes2=genes2)})
-            response = client.messages.create(
-                                            model=model,
-                                            max_tokens=2000,
-                                            system=SYSTEM_DDI_CLASSIFICATION,
-                                            messages=msg,
-                                            temperature = 0
-                                        )
-            cleaned_text = response.content[0].text
-            cleaned_text = cleaned_text.replace(".","")
+            if model.find("sonnet-4") != -1 or model.find("opus-4") !=-1:
+                response = client.messages.create(
+                                                model=model,
+                                                max_tokens=16000,
+                                                #thinking={
+                                                #    "type": "enabled",
+                                                #    "budget_tokens": 10000
+                                                #},
+                                                system=SYSTEM_DDI_CLASSIFICATION,
+                                                messages=msg,
+                                            )
+            else:
+                response = client.messages.create(
+                                                model=model,
+                                                max_tokens=2000,
+                                                system=SYSTEM_DDI_CLASSIFICATION,
+                                                messages=msg,
+                                                temperature = 0
+                                            )
+            print(response)
+            if response.content and len(response.content) > 0:
+                cleaned_text = response.content[0].text
+                cleaned_text = cleaned_text.replace(".","")
+                if cleaned_text.lower().find("no interaction") !=-1:
+                    cleaned_text = "no interaction"
+                else:
+                    cleaned_text = "interaction"
+            else:
+                cleaned_text = "no interaction"
             #print(USER_DDI_CLASSIFICATION.format(drug1=drug1, smiles1=smiles1, org1=org1, genes1=genes1, drug2=drug2, smiles2=smiles2, org2=org2, genes2=genes2))
             #print(cleaned_text)
             return cleaned_text.lower()

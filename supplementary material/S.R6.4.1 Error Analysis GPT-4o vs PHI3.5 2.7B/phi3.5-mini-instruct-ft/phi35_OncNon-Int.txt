@@ -1,0 +1,85 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:02:49
+Model: Phi-3.5 2.7B
+Dataset: OncNon-Int.
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.919
+   Precision: 0.861
+   Sensitivity: 1.000
+   F1-Score: 0.925
+   Total samples: 582
+   TP: 291, TN: 244, FP: 47, FN: 0
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 47 cases
+     Avg combined SMILES length: 99.6 ± 48.2
+   True Positives: 291 cases
+     Avg combined SMILES length: 153.4 ± 91.6
+   True Negatives: 244 cases
+     Avg combined SMILES length: 115.0 ± 77.3
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 47 cases
+     Avg combined gene targets: 7.3 ± 9.4
+   True Positives: 291 cases
+     Avg combined gene targets: 6.2 ± 5.6
+   True Negatives: 244 cases
+     Avg combined gene targets: 5.8 ± 11.6
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 30 cases
+     Escherichia coli (strain K12) - Humans: 2 cases
+     Human immunodeficiency virus 1 - Humans: 1 cases
+     Humans - Gram positive and gram negative bacteria: 1 cases
+     Mycobacterium avium - Humans: 1 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Testosterone enanthate: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   S-(4-nitrobenzyl)glutathione: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Emtricitabine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Mepivacaine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Hyaluronidase: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Eslicarbazepine acetate: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Clorobiocin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Oliceridine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Phenothiazine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Tirzepatide: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Testosterone enanthate + S-(4-nitrobenzyl)glutathione
+        Organisms: Humans - Humans
+        Gene targets: 3 - 1
+     2. Emtricitabine + Mepivacaine
+        Organisms: Human immunodeficiency virus 1 - Humans
+        Gene targets: 1 - 1
+     3. Hyaluronidase + Eslicarbazepine acetate
+        Organisms: Humans - Humans
+        Gene targets: 1 - 1
+     4. Clorobiocin + Oliceridine
+        Organisms: Escherichia coli (strain K12) - Humans
+        Gene targets: 1 - 1
+     5. Phenothiazine + Tirzepatide
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

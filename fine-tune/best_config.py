@@ -24,12 +24,39 @@ from mlx_lm.tuner.datasets import load_dataset
 from mlx_lm.utils import save_config
 #from sqlalchemy.exc import SQLAlchemyError
 
-class OptunaCallback:
-    def __init__(self, trial: Trial):
+class OptunaCallbackMedian:
+    def __init__(self, trial, min_prune_step=20, patience=0):
         self.trial = trial
-        self.min_steps_before_pruning = 100
+        self.min_prune_step = min_prune_step
+        self.patience = patience
+        self.best = float('inf')
+        self.no_improve = 0
+
+    def on_train_loss_report(self, info):
+        step = info.get("iteration", info.get("step"))
+        loss = info.get("train_loss", info.get("loss"))
+        if step is None or loss is None:
+            return
+        self.trial.report(loss, step)
+        if step < self.min_prune_step:
+            return
+        if loss < self.best - 1e-6:
+            self.best = loss
+            self.no_improve = 0
+        else:
+            self.no_improve += 1
+        if self.no_improve >= self.patience or self.trial.should_prune():
+            raise optuna.exceptions.TrialPruned()
+
+    def on_val_loss_report(self, info):
+        pass  # disabilitata: niente eval intermedie
+
+class OptunaCallback:
+    def __init__(self, trial: Trial, min_prune_step: int = 40, patience: int = 1):
+        self.trial = trial
+        self.min_prune_step = min_prune_step
         self.best_loss = float('inf')
-        self.patience = 2
+        self.patience = patience
         self.no_improve_count = 0
 
     def on_train_loss_report(self, val_info):
@@ -38,25 +65,28 @@ class OptunaCallback:
     def on_val_loss_report(self, val_info):
         current_step = val_info["iteration"]
         current_loss = val_info["val_loss"]
-        if current_step < self.min_steps_before_pruning:
-            return
-        # Report the intermediate value to Optuna
+
+        # Report immediatelly to have an early pruning 
         self.trial.report(current_loss, current_step)
-        
-        # Check if the trial should be pruned
-        #if current_loss < self.best_loss:
-        #    self.best_loss = current_loss
-        #    self.no_improve_count = 0
-        #else:
-        #    self.no_improve_count += 1
-        
-        # Check if we should prune
-        #if self.no_improve_count >= self.patience:
-        if self.trial.should_prune():
+
+        best_attr = self.trial.user_attrs.get("best_val_loss", float("inf"))
+        if current_loss < best_attr - 1e-6:
+            self.trial.set_user_attr("best_val_loss", float(current_loss))
+            self.trial.set_user_attr("best_step", int(current_step))
+
+        if current_step < self.min_prune_step:
+            return
+
+        # Patience: prune if it doesn't improve 
+        if current_loss < self.best_loss - 1e-6:
+            self.best_loss = current_loss
+            self.no_improve_count = 0
+        else:
+            self.no_improve_count += 1
+
+        if self.no_improve_count >= self.patience or self.trial.should_prune():
             raise optuna.exceptions.TrialPruned()
-        #else:
-        #    print(f"Ignore.....{self.no_improve_count}")
-        
+   
 def build_schedule(init_lr, decay_steps, end):
     """Create the cosine decay scheduler """
     return optim.cosine_decay(init=init_lr, decay_steps=decay_steps, end=end)
@@ -66,31 +96,40 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Hyperparameter optimization for MLX models')
     
     # Base parameters
-    parser.add_argument('--model', type=str, default="mlx-community/Mistral-7B-v0.1-hf",
+    parser.add_argument('--model', type=str, default="microsoft/Phi-3.5-mini-instruct",
                       help='Path to the model or model identifier')
     parser.add_argument('--output-dir', type=str, default="optimization_results",
                       help='Directory to save optimization results')
     parser.add_argument('--data', type=str, required=True,
                       help='Path to the dataset')
-    parser.add_argument('--max-seq-length', type=int, default=2048,
+    parser.add_argument('--max-seq-length', type=int, default=1024, #2048
                       help='Maximum sequence length')
     parser.add_argument('--seed', type=int, default=42,
                       help='Random seed')
     
     # Training params
-    parser.add_argument('--iters', type=int, default=1000,
+    parser.add_argument('--iters', type=int, default=30, #150, #300
                       help='Number of training iterations')
     parser.add_argument('--steps-per-report', type=int, default=10,
                       help='Steps between loss reporting')
-    parser.add_argument('--steps-per-eval', type=int, default=100,
+    parser.add_argument('--steps-per-eval', type=int, default=60, #50
                       help='Steps between evaluations')
-    parser.add_argument('--save-every', type=int, default=100,
+    parser.add_argument('--save-every', type=int, default=1000000000, #150
                       help='Steps between saving model')
-    parser.add_argument('--val-batches', type=int, default=25,
+    parser.add_argument('--val-batches', type=int, default=3,#25
                       help='Number of validation batches')
     parser.add_argument('--save-model', action='store_true',
                       help='Whether to save the best model during training')
-    
+
+    parser.add_argument('--ignore_pruner', action='store_true',
+                      help='Whether to ignore pruner')
+
+    parser.add_argument('--pruner_factor', type=int, default=2,#3
+                      help='Pruner factor')
+
+    parser.add_argument('--patience', type=int, default=1,# aggressive
+                      help='Number of allowed successive non-improved iterations')
+
     # Optuna config
     parser.add_argument('--optuna-config', type=str, required=True,
                       help='Path to the YAML file containing Optuna configuration')
@@ -104,31 +143,37 @@ def load_optuna_config(config_path):
 def suggest_parameters(trial: Trial, param_config):
     params = {}
     for param_name, param_specs in param_config.items():
-        if param_specs['type'] == 'float':
-            # Explicitly convert values as floats 
+        ptype = param_specs['type']
+        if ptype == 'float':
             low = float(param_specs['low'])
             high = float(param_specs['high'])
             use_log = param_specs.get('log', False)
-            
+            step = param_specs.get('step', None)
+
             if use_log and (low <= 0 or high <= 0):
                 raise ValueError(f"Log scale requires positive values for {param_name}")
-            
-            params[param_name] = trial.suggest_float(
-                param_name,
-                low,
-                high,
-                log=use_log
-            )
-        elif param_specs['type'] == 'int':
+
+            if use_log:
+                params[param_name] = trial.suggest_float(
+                    param_name, low, high, log=True
+                )
+            elif step is not None:
+                params[param_name] = trial.suggest_float(
+                    param_name, low, high, step=float(step)
+                )
+            else:
+                params[param_name] = trial.suggest_float(
+                    param_name, low, high
+                )
+
+        elif ptype == 'int':
             params[param_name] = trial.suggest_int(
-                param_name,
-                param_specs['low'],
-                param_specs['high']
+                param_name, param_specs['low'], param_specs['high']
             )
-        elif param_specs['type'] == 'categorical':
+
+        elif ptype == 'categorical':
             params[param_name] = trial.suggest_categorical(
-                param_name,
-                param_specs['choices']
+                param_name, param_specs['choices']
             )
     return params
 
@@ -202,7 +247,7 @@ def train_model(model, tokenizer, args, trial=None):
         batch_size=args.batch_size,
         iters=args.iters,
         val_batches=args.val_batches,
-        steps_per_report=10,  # Fisso a 10
+        steps_per_report=args.steps_per_report,  
         steps_per_eval=args.steps_per_eval,
         steps_per_save=args.save_every,
         adapter_file=adapter_file,
@@ -222,7 +267,11 @@ def train_model(model, tokenizer, args, trial=None):
     optimizer = optim.Adam(learning_rate=lr_schedule)
 
     # Create callback if trial is provided
-    training_callback = OptunaCallback(trial) if trial is not None else None
+    training_callback = OptunaCallback(
+        trial,
+        min_prune_step=args.steps_per_eval*2,  # eg. 5
+        patience=args.patience
+    ) if trial is not None else None
 
     # Train model
     train(
@@ -271,15 +320,25 @@ def create_objective(args, optuna_config):
             # Load datasets
             train_dataset, valid_dataset, _ = load_dataset(dataset_args, tokenizer)
             
+            try:
+                lrx = float(params['learning_rate'])
+                lre = lrx * 0.1
+            except:
+                lrx = params['learning_rate']
+                lre = params.get('lr_end',0)
             # Configure training args 
             training_args = types.SimpleNamespace(
-                learning_rate=params['learning_rate'],
-                lr_end=params['lr_end'] if 'lr_end' in params else 0,
+                learning_rate=lrx, #params['learning_rate'],
+                lr_end=lre,
+                patience = args.patience,
+                pruner_factor = args.pruner_factor,
+                ignore_pruner = args.ignore_pruner,
                 batch_size=params['batch_size'],
                 num_layers=params['num_layers'],
                 max_seq_length=args.max_seq_length,
                 iters=args.iters,
                 steps_per_eval=args.steps_per_eval,
+                steps_per_report = args.steps_per_report,
                 save_every=args.save_every,
                 val_batches=args.val_batches,
                 save_model=args.save_model,
@@ -298,11 +357,13 @@ def create_objective(args, optuna_config):
             # Training
             model, val_loss, val_ppl = train_model(model, tokenizer, training_args, trial)
 
-            # Report validation loss and check pruning
-            for step in range(training_args.steps_per_eval, training_args.iters, training_args.steps_per_eval):
-                trial.report(val_loss, step) # report loss at each validation step
-                if trial.should_prune():
-                   raise optuna.exceptions.TrialPruned()
+            init_par = False
+            if init_par:
+                # Report validation loss and check pruning
+                for step in range(training_args.steps_per_eval, training_args.iters, training_args.steps_per_eval):
+                    trial.report(val_loss, step) # report loss at each validation step
+                    if trial.should_prune():
+                        raise optuna.exceptions.TrialPruned()
                 
             # Save the trial results 
             trial_dir = Path(args.output_dir) / f"trial_{trial.number}"
@@ -325,6 +386,32 @@ def create_objective(args, optuna_config):
             
     return objective
 
+
+def save_topk_trials(study, k, out_path):
+    # prendi solo i trial che hanno best_val_loss registrato
+    trials = [t for t in study.trials if "best_val_loss" in t.user_attrs]
+    if not trials:
+        print("Nessun trial con best_val_loss nei user_attrs. Controlla la callback.")
+        return
+
+    trials.sort(key=lambda t: t.user_attrs["best_val_loss"])
+    topk = trials[:k]
+
+    payload = []
+    for t in topk:
+        payload.append({
+            "trial_number": t.number,
+            "state": str(t.state),  # COMPLETE o PRUNED
+            "best_val_loss": t.user_attrs["best_val_loss"],
+            "best_step": t.user_attrs.get("best_step"),
+            "params": t.params
+        })
+
+    import json, os
+    with open(out_path, "w") as f:
+        json.dump(payload, f, indent=2)
+    print(f"Salvate {len(payload)} configurazioni candidate in {out_path}")
+
 def main():
     args = parse_args()
     
@@ -338,7 +425,7 @@ def main():
     np.random.seed(args.seed)
     
     total_trials = optuna_config['optimization']['n_trials']
-    startup_trials = 5 #int(total_trials * 0.075)
+    startup_trials = 3 #5 
 
     # Create the SQLite storage
     storage_name = f"sqlite:///{args.output_dir}/optuna.db"
@@ -352,17 +439,25 @@ def main():
         )
         print(f"Resumed existing study '{study_name}' with {len(study.trials)} trials")
     except:
+        #pruner_median = optuna.pruners.MedianPruner(
+        #        n_startup_trials=startup_trials,
+        #        n_warmup_steps=20, #50, #20,
+        #        interval_steps=20 #50, #20
+        #    )
+        pruner_to_set = None
+        if not args.ignore_pruner:
+            pruner_to_set = optuna.pruners.SuccessiveHalvingPruner(
+                min_resource=args.steps_per_eval,   # es. 5, allineato alle eval
+                reduction_factor=args.pruner_factor,
+                min_early_stopping_rate=0
+            )
         # It the study doesn't exist, create a new one
         study = optuna.create_study(
             study_name=study_name,
             storage=storage_name,
             direction=optuna_config['optimization']['direction'],
             sampler=optuna.samplers.TPESampler(seed=args.seed),
-            pruner=optuna.pruners.MedianPruner(
-                n_startup_trials=startup_trials,
-                n_warmup_steps=50, #20,
-                interval_steps=50 #20
-            ),
+            pruner=pruner_to_set,
             load_if_exists=True  # This is vital to restart stopped optimizations
         )
         print(f"Created new study '{study_name}'")
@@ -381,7 +476,7 @@ def main():
     # Perform optimization
     study.optimize(
         objective,
-        n_trials=total_trials
+        n_trials=remaining_trials
     )
     
     # Print and save the results
@@ -405,6 +500,9 @@ def main():
     
     with open(os.path.join(args.output_dir, "optimization_results.json"), "w") as f:
         json.dump(results, f, indent=4)
+
+    topk_path = os.path.join(args.output_dir, "topk_candidates.json")
+    save_topk_trials(study, k=7, out_path=topk_path)
 
 if __name__ == "__main__":
     main()

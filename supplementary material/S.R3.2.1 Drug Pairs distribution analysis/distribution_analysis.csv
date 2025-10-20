@@ -1,0 +1,7 @@
+Feature,Positive (mean±std),Positive (median),Negative (mean±std),Negative (median),p-value,p-value (formatted),Significance,Cohen's d,n_positive,n_negative
+SMILES Length (Drug 1),72.33 $\pm$ 74.12,55.00,57.57 $\pm$ 54.07,50.00,0.000000,<0.001,***,0.228,21947,21947
+SMILES Length (Drug 2),65.05 $\pm$ 72.16,50.00,56.99 $\pm$ 50.45,50.00,1.000000,1.000,ns,0.129,21947,21947
+Total SMILES Length,137.37 $\pm$ 105.21,112.00,114.56 $\pm$ 73.39,102.00,0.000000,<0.001,***,0.252,21947,21947
+Target Genes (Drug 1),4.12 $\pm$ 7.16,2.00,2.75 $\pm$ 7.38,1.00,0.000000,<0.001,***,0.188,21947,21947
+Target Genes (Drug 2),5.25 $\pm$ 8.16,2.00,2.80 $\pm$ 7.73,1.00,0.000000,<0.001,***,0.308,21947,21947
+Total Target Genes,9.37 $\pm$ 10.86,6.00,5.56 $\pm$ 10.67,3.00,0.000000,<0.001,***,0.354,21947,21947

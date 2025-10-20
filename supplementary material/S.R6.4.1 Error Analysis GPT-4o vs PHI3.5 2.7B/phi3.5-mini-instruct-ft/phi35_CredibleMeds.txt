@@ -1,0 +1,38 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 13:55:01
+Model: Phi-3.5 2.7B
+Dataset: CredibleMeds
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 1.000
+   Precision: 1.000
+   Sensitivity: 1.000
+   F1-Score: 1.000
+   Total samples: 10
+   TP: 5, TN: 5, FP: 0, FN: 0
+
+2. SMILES COMPLEXITY ANALYSIS:
+   True Positives: 5 cases
+     Avg combined SMILES length: 150.6 ± 101.5
+   True Negatives: 5 cases
+     Avg combined SMILES length: 108.0 ± 21.9
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   True Positives: 5 cases
+     Avg combined gene targets: 5.8 ± 4.3
+   True Negatives: 5 cases
+     Avg combined gene targets: 2.6 ± 0.8
+
+4. ORGANISM PATTERN ANALYSIS:
+
+5. MOST PROBLEMATIC DRUGS:
+
+6. SPECIFIC ERROR EXAMPLES:
+
+7. SUMMARY INSIGHTS:
+   - Model shows balanced error distribution
+
+Report generation completed successfully.
+============================================================

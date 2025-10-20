@@ -1,0 +1,85 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 13:59:54
+Model: Phi-3.5 2.7B
+Dataset: HIV
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.927
+   Precision: 0.872
+   Sensitivity: 1.000
+   F1-Score: 0.932
+   Total samples: 11302
+   TP: 5651, TN: 4824, FP: 827, FN: 0
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 827 cases
+     Avg combined SMILES length: 120.3 ± 98.6
+   True Positives: 5651 cases
+     Avg combined SMILES length: 131.8 ± 62.7
+   True Negatives: 4824 cases
+     Avg combined SMILES length: 112.4 ± 67.2
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 827 cases
+     Avg combined gene targets: 8.9 ± 17.0
+   True Positives: 5651 cases
+     Avg combined gene targets: 6.7 ± 9.4
+   True Negatives: 4824 cases
+     Avg combined gene targets: 4.9 ± 9.6
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 586 cases
+     Escherichia coli (strain K12) - Humans: 28 cases
+     Humans - Escherichia coli (strain K12): 19 cases
+     Humans - Mycobacterium tuberculosis: 7 cases
+     Humans - Escherichia coli: 6 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Spaglumic acid: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Cemiplimab: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Sulfanilamide: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Eslicarbazepine acetate: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Bacitracin: 1.000 error rate
+     (3/3 errors: 3 FP, 0 FN)
+   Diroximel fumarate: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Icosapent: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Romiplostim: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Azelastine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Myxothiazol: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Spaglumic acid + Regadenoson
+        Organisms: Humans - Humans
+        Gene targets: 1 - 1
+     2. Tocilizumab + Tazobactam
+        Organisms: Humans - Escherichia coli
+        Gene targets: 1 - 2
+     3. Afegostat + Cefuroxime
+        Organisms: Mycobacterium tuberculosis - Clostridium perfringens (strain 13 / Type A)
+        Gene targets: 3 - 1
+     4. Rilmenidine + Cemiplimab
+        Organisms: Humans - Humans
+        Gene targets: 1 - 1
+     5. Prednisolone acetate + (R)-Rolipram
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

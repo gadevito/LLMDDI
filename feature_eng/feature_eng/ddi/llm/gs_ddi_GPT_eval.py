@@ -79,14 +79,21 @@ def classify(drug, model="gpt-4o",backoff_factor=1.0):
             msg = [{"role": "system", "content": SYSTEM_DDI_CLASSIFICATION}]
             msg.append({"role": "user", "content":  USER_DDI_CLASSIFICATION.format(drug1=drug1, smiles1=smiles1, org1=org1, genes1=genes1, drug2=drug2, smiles2=smiles2, org2=org2, genes2=genes2)})
 
-            response = client.chat.completions.create(model=model,
-                                            messages=msg,
-                                            seed=123,
-                                            max_tokens=1000,
-                                            temperature = 0)
+            if model.startswith("gpt"):
+                response = client.chat.completions.create(model=model,
+                                                messages=msg,
+                                                seed=123,
+                                                max_tokens=1000,
+                                                temperature = 0)
+            else:
+                response = client.chat.completions.create(model=model,
+                                                messages=msg,
+                                                seed=123,
+                                                #max_completion_tokens=1000,
+                                                )
             cleaned_text = response.choices[0].message.content
             #print(USER_DDI_CLASSIFICATION.format(drug1=drug1, smiles1=smiles1, org1=org1, genes1=genes1, drug2=drug2, smiles2=smiles2, org2=org2, genes2=genes2))
-            #print(cleaned_text)
+            print(cleaned_text)
             cleaned_text = cleaned_text.replace(".","")
             return cleaned_text.lower()
         except Exception as e:

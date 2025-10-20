@@ -1,0 +1,56 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:04:06
+Model: Phi-3.5 2.7B
+Dataset: PKCorpus
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.500
+   Precision: 0.500
+   Sensitivity: 1.000
+   F1-Score: 0.667
+   Total samples: 4
+   TP: 2, TN: 0, FP: 2, FN: 0
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 2 cases
+     Avg combined SMILES length: 83.0 ± 38.0
+   True Positives: 2 cases
+     Avg combined SMILES length: 77.5 ± 38.5
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 2 cases
+     Avg combined gene targets: 14.5 ± 6.5
+   True Positives: 2 cases
+     Avg combined gene targets: 8.5 ± 1.5
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 2 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Pioglitazone: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Omega-3-carboxylic acids: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Zavegepant: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Dexfosfoserine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Pioglitazone + Omega-3-carboxylic acids
+        Organisms: Humans - Humans
+        Gene targets: 2 - 6
+     2. Zavegepant + Dexfosfoserine
+        Organisms: Humans - Humans
+        Gene targets: 1 - 20
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

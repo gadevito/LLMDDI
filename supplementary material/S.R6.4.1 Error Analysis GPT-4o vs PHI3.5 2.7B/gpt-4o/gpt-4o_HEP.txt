@@ -1,0 +1,111 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:53:26
+Model: GPT-4o
+Dataset: HEP
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.908
+   Precision: 0.900
+   Sensitivity: 0.917
+   F1-Score: 0.908
+   Total samples: 2542
+   TP: 1165, TN: 1142, FP: 129, FN: 106
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 129 cases
+     Avg combined SMILES length: 103.5 ± 84.8
+   False Negatives: 106 cases
+     Avg combined SMILES length: 199.8 ± 97.5
+   True Positives: 1165 cases
+     Avg combined SMILES length: 148.0 ± 67.1
+   True Negatives: 1142 cases
+     Avg combined SMILES length: 113.6 ± 56.4
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 129 cases
+     Avg combined gene targets: 9.5 ± 17.0
+   False Negatives: 106 cases
+     Avg combined gene targets: 4.4 ± 3.6
+   True Positives: 1165 cases
+     Avg combined gene targets: 7.1 ± 8.3
+   True Negatives: 1142 cases
+     Avg combined gene targets: 5.5 ± 15.2
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 104 cases
+     Humans - Escherichia coli (strain K12): 3 cases
+     Enteric bacteria and other eubacteria - Humans: 3 cases
+     Humans - Hepatitis C Virus: 2 cases
+     Humans - Clostridium perfringens (strain 13 / Type A): 2 cases
+   Top false negatives organism pairs:
+     Hepatitis C Virus - Humans: 63 cases
+     HBV-F - Humans: 17 cases
+     Hepatitis C Virus - Escherichia coli (strain K12): 5 cases
+     Influenza A virus (strain A/Beijing/11/1956 H1N1) - Humans: 4 cases
+     Hepatitis C Virus - Plasmodium falciparum: 3 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Artesunate: 1.000 error rate
+     (5/5 errors: 0 FP, 5 FN)
+   Acarbose: 1.000 error rate
+     (4/4 errors: 0 FP, 4 FN)
+   Levocetirizine: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Goserelin: 1.000 error rate
+     (3/3 errors: 1 FP, 2 FN)
+   Metformin: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Thiamine: 1.000 error rate
+     (4/4 errors: 0 FP, 4 FN)
+   Tiotropium: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Trimebutine: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Zanamivir: 1.000 error rate
+     (2/2 errors: 0 FP, 2 FN)
+   Cyanamide: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Cyanamide + Ixekizumab
+        Organisms: Humans - Humans
+        Gene targets: 2 - 1
+     2. Eptifibatide + Tixagevimab
+        Organisms: Humans - SARS-CoV-2
+        Gene targets: 3 - 1
+     3. Venlafaxine + Copper
+        Organisms: Humans - Humans
+        Gene targets: 3 - 145
+     4. Ibalizumab + Lasmiditan
+        Organisms: Humans - Humans
+        Gene targets: 3 - 1
+     5. Trimetazidine + Baricitinib
+        Organisms: Humans - Humans
+        Gene targets: 1 - 4
+   False Negatives (missed real interactions):
+     1. Daclatasvir + Bisacodyl
+        Organisms: Hepatitis C Virus - Humans
+        Gene targets: 1 - 9
+     2. Daclatasvir + Anidulafungin
+        Organisms: Hepatitis C Virus - Aspergillus niger (strain CBS 513.88 / FGSC A1513)
+        Gene targets: 1 - 1
+     3. Daclatasvir + Artesunate
+        Organisms: Hepatitis C Virus - Plasmodium falciparum
+        Gene targets: 1 - 1
+     4. Daclatasvir + Acamprosate
+        Organisms: Hepatitis C Virus - Humans
+        Gene targets: 1 - 9
+     5. Daclatasvir + Acarbose
+        Organisms: Hepatitis C Virus - Humans
+        Gene targets: 1 - 4
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

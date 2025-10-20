@@ -1,0 +1,109 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:05:01
+Model: Phi-3.5 2.7B
+Dataset: Worldvista
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.924
+   Precision: 0.877
+   Sensitivity: 0.986
+   F1-Score: 0.928
+   Total samples: 3026
+   TP: 1492, TN: 1304, FP: 209, FN: 21
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 209 cases
+     Avg combined SMILES length: 118.7 ± 101.4
+   False Negatives: 21 cases
+     Avg combined SMILES length: 130.7 ± 129.9
+   True Positives: 1492 cases
+     Avg combined SMILES length: 135.9 ± 115.4
+   True Negatives: 1304 cases
+     Avg combined SMILES length: 112.7 ± 60.9
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 209 cases
+     Avg combined gene targets: 9.4 ± 15.0
+   False Negatives: 21 cases
+     Avg combined gene targets: 10.9 ± 5.2
+   True Positives: 1492 cases
+     Avg combined gene targets: 13.7 ± 13.5
+   True Negatives: 1304 cases
+     Avg combined gene targets: 5.0 ± 8.9
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 143 cases
+     Escherichia coli (strain K12) - Humans: 6 cases
+     Humans - Mycobacterium tuberculosis: 3 cases
+     Humans - Staphylococcus aureus: 3 cases
+     Humans - Human immunodeficiency virus 1: 3 cases
+   Top false negatives organism pairs:
+     Humans - Humans: 16 cases
+     Staphylococcus aureus - Humans: 3 cases
+     Humans - Staphylococcus aureus: 2 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Agkistrodon piscivorus antivenin: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Dexketoprofen: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Alvocidib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Metformin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Spectinomycin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Cabazitaxel: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Serdexmethylphenidate: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Olaparib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Magnesium acetate tetrahydrate: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Paclitaxel: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Agkistrodon piscivorus antivenin + Dexketoprofen
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+     2. Alvocidib + Cidofovir
+        Organisms: Humans - HHV-5
+        Gene targets: 11 - 1
+     3. Metformin + Glutamic acid
+        Organisms: Humans - Humans
+        Gene targets: 3 - 63
+     4. Zucapsaicin + Levobunolol
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+     5. Spectinomycin + Cabazitaxel
+        Organisms: Escherichia coli (strain K12) - Humans
+        Gene targets: 1 - 1
+   False Negatives (missed real interactions):
+     1. Periciazine + Dalfampridine
+        Organisms: Humans - Humans
+        Gene targets: 4 - 16
+     2. Periciazine + Enoxacin
+        Organisms: Humans - Humans
+        Gene targets: 4 - 3
+     3. Tropicamide + Periciazine
+        Organisms: Humans - Humans
+        Gene targets: 4 - 4
+     4. Periciazine + Ketotifen
+        Organisms: Humans - Humans
+        Gene targets: 4 - 2
+     5. Pipotiazine + Tetracosactide
+        Organisms: Humans - Humans
+        Gene targets: 4 - 1
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

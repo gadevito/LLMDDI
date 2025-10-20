@@ -1,0 +1,111 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:56:37
+Model: GPT-4o
+Dataset: Oscar
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.913
+   Precision: 0.921
+   Sensitivity: 0.905
+   F1-Score: 0.913
+   Total samples: 4104
+   TP: 1857, TN: 1892, FP: 160, FN: 195
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 160 cases
+     Avg combined SMILES length: 113.7 ± 108.4
+   False Negatives: 195 cases
+     Avg combined SMILES length: 104.5 ± 40.2
+   True Positives: 1857 cases
+     Avg combined SMILES length: 106.3 ± 37.1
+   True Negatives: 1892 cases
+     Avg combined SMILES length: 111.7 ± 63.2
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 160 cases
+     Avg combined gene targets: 8.2 ± 10.3
+   False Negatives: 195 cases
+     Avg combined gene targets: 9.7 ± 7.4
+   True Positives: 1857 cases
+     Avg combined gene targets: 10.9 ± 10.2
+   True Negatives: 1892 cases
+     Avg combined gene targets: 5.1 ± 8.2
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 120 cases
+     Humans - Escherichia coli (strain K12): 4 cases
+     Escherichia coli (strain K12) - Humans: 3 cases
+     Humans - Enterobacter cloacae: 2 cases
+     Humans - None: 2 cases
+   Top false negatives organism pairs:
+     Humans - Humans: 111 cases
+     Staphylococcus aureus - Humans: 26 cases
+     Humans - Staphylococcus aureus: 11 cases
+     Escherichia coli - Humans: 9 cases
+     Humans - Escherichia coli: 7 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Pseudoephedrine: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   Quinidine: 1.000 error rate
+     (1/1 errors: 0 FP, 1 FN)
+   LY-294002: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Ponatinib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Methylergometrine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Brexucabtagene autoleucel: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Atorvastatin: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Piretanide: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Fluvoxamine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Ceforanide: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. LY-294002 + Ponatinib
+        Organisms: Humans - Humans
+        Gene targets: 2 - 15
+     2. Methylergometrine + Clofazimine
+        Organisms: Humans - Humans
+        Gene targets: 2 - 2
+     3. Brexucabtagene autoleucel + Atorvastatin
+        Organisms: Humans - Humans
+        Gene targets: 1 - 5
+     4. Piretanide + Dienestrol
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+     5. Fluvoxamine + Anisotropine methylbromide
+        Organisms: Humans - Humans
+        Gene targets: 2 - 3
+   False Negatives (missed real interactions):
+     1. Methicillin Acyl-Serine + Propranolol
+        Organisms: Staphylococcus aureus - Humans
+        Gene targets: 1 - 5
+     2. Etonogestrel + Glucosamine
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+     3. Tazobactam + Bopindolol
+        Organisms: Escherichia coli - Humans
+        Gene targets: 2 - 5
+     4. Flunisolide + Ademetionine
+        Organisms: Humans - Humans
+        Gene targets: 1 - 8
+     5. Methicillin Acyl-Serine + Norethisterone
+        Organisms: Staphylococcus aureus - Humans
+        Gene targets: 1 - 3
+
+7. SUMMARY INSIGHTS:
+   - Model tends to under-predict interactions (more false negatives than false positives)
+   - High precision but lower sensitivity - conservative approach, might miss some interactions
+
+Report generation completed successfully.
+============================================================

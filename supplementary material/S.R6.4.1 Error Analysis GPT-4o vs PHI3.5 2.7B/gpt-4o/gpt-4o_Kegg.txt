@@ -1,0 +1,111 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 14:54:21
+Model: GPT-4o
+Dataset: Kegg
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.937
+   Precision: 0.917
+   Sensitivity: 0.962
+   F1-Score: 0.939
+   Total samples: 13262
+   TP: 6378, TN: 6053, FP: 578, FN: 253
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 578 cases
+     Avg combined SMILES length: 124.7 ± 106.9
+   False Negatives: 253 cases
+     Avg combined SMILES length: 197.7 ± 227.8
+   True Positives: 6378 cases
+     Avg combined SMILES length: 159.5 ± 143.2
+   True Negatives: 6053 cases
+     Avg combined SMILES length: 115.0 ± 73.3
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 578 cases
+     Avg combined gene targets: 9.5 ± 17.6
+   False Negatives: 253 cases
+     Avg combined gene targets: 9.8 ± 12.8
+   True Positives: 6378 cases
+     Avg combined gene targets: 9.5 ± 10.2
+   True Negatives: 6053 cases
+     Avg combined gene targets: 5.4 ± 10.5
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 453 cases
+     Humans - Escherichia coli (strain K12): 14 cases
+     Escherichia coli (strain K12) - Humans: 7 cases
+     Humans - Enteric bacteria and other eubacteria: 4 cases
+     Humans - Escherichia coli: 4 cases
+   Top false negatives organism pairs:
+     Humans - Humans: 140 cases
+     Clostridium difficile (strain 630) - Humans: 49 cases
+     Bacillus thermoproteolyticus - Humans: 13 cases
+     Humans - Bacillus thermoproteolyticus: 11 cases
+     Humans - Yeast: 8 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Seratrodast: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Capecitabine: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Lipoic acid: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Casirivimab: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   S-(Methylmercury)-L-Cysteine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Ospemifene: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Lisdexamfetamine: 1.000 error rate
+     (3/3 errors: 3 FP, 0 FN)
+   Ridogrel: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Vosoritide: 1.000 error rate
+     (3/3 errors: 3 FP, 0 FN)
+   Anidulafungin: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Ceruletide + Bromodiphenhydramine
+        Organisms: Humans - Humans
+        Gene targets: 1 - 1
+     2. Paclitaxel + Aplyronine A
+        Organisms: Humans - Humans
+        Gene targets: 6 - 1
+     3. Ocriplasmin + Pyrantel
+        Organisms: Humans - Humans
+        Gene targets: 3 - 2
+     4. Gilteritinib + Exemestane
+        Organisms: Humans - Humans
+        Gene targets: 19 - 1
+     5. Salsalate + Valpromide
+        Organisms: Humans - Rhodococcus erythropolis
+        Gene targets: 2 - 1
+   False Negatives (missed real interactions):
+     1. Phenol + Atenolol
+        Organisms: Bacillus thermoproteolyticus - Humans
+        Gene targets: 2 - 2
+     2. Phenol + Baclofen
+        Organisms: Bacillus thermoproteolyticus - Humans
+        Gene targets: 2 - 3
+     3. Phenol + Nadolol
+        Organisms: Bacillus thermoproteolyticus - Humans
+        Gene targets: 2 - 2
+     4. Phenol + Perphenazine
+        Organisms: Bacillus thermoproteolyticus - Humans
+        Gene targets: 2 - 3
+     5. Phenol + Pindolol
+        Organisms: Bacillus thermoproteolyticus - Humans
+        Gene targets: 2 - 5
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

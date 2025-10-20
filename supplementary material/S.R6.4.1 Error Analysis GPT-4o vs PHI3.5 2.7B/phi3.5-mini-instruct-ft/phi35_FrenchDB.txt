@@ -1,0 +1,111 @@
+============================================================
+QUALITATIVE ERROR ANALYSIS REPORT
+Generated on: 2025-08-21 13:58:52
+Model: Phi-3.5 2.7B
+Dataset: FrenchDB
+============================================================
+
+1. BASIC PERFORMANCE METRICS:
+   Accuracy: 0.910
+   Precision: 0.865
+   Sensitivity: 0.972
+   F1-Score: 0.915
+   Total samples: 8594
+   TP: 4177, TN: 3644, FP: 653, FN: 120
+
+2. SMILES COMPLEXITY ANALYSIS:
+   False Positives: 653 cases
+     Avg combined SMILES length: 118.9 ± 101.2
+   False Negatives: 120 cases
+     Avg combined SMILES length: 125.6 ± 85.3
+   True Positives: 4177 cases
+     Avg combined SMILES length: 119.0 ± 91.0
+   True Negatives: 3644 cases
+     Avg combined SMILES length: 115.6 ± 71.7
+
+3. GENE TARGET COMPLEXITY ANALYSIS:
+   False Positives: 653 cases
+     Avg combined gene targets: 8.4 ± 10.7
+   False Negatives: 120 cases
+     Avg combined gene targets: 7.6 ± 8.4
+   True Positives: 4177 cases
+     Avg combined gene targets: 11.5 ± 12.6
+   True Negatives: 3644 cases
+     Avg combined gene targets: 4.9 ± 7.8
+
+4. ORGANISM PATTERN ANALYSIS:
+   Top false positives organism pairs:
+     Humans - Humans: 463 cases
+     Humans - Escherichia coli (strain K12): 19 cases
+     Escherichia coli (strain K12) - Humans: 17 cases
+     None - Humans: 5 cases
+     Staphylococcus aureus - Humans: 5 cases
+   Top false negatives organism pairs:
+     Humans - Humans: 102 cases
+     Humans - Staphylococcus aureus: 5 cases
+     Humans - Plasmodium falciparum: 3 cases
+     Human immunodeficiency virus 1 - Humans: 3 cases
+     Humans - Haemophilus influenzae (strain ATCC 51907 / DSM 11121 / KW20 / Rd): 2 cases
+
+5. MOST PROBLEMATIC DRUGS:
+   Fructose: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Neomycin: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Tributyltin: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Tenapanor: 1.000 error rate
+     (3/3 errors: 3 FP, 0 FN)
+   Magnesium carbonate: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   Tauroursodeoxycholic acid: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Avapritinib: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Tafluprost: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+   Avelumab: 1.000 error rate
+     (2/2 errors: 2 FP, 0 FN)
+   5-fluorouridine: 1.000 error rate
+     (1/1 errors: 1 FP, 0 FN)
+
+6. SPECIFIC ERROR EXAMPLES:
+   False Positives (predicted interaction, but no real interaction):
+     1. Sapropterin + Troleandomycin
+        Organisms: Humans - Humans
+        Gene targets: 4 - 3
+     2. Fluvoxamine + Fructose
+        Organisms: Humans - Escherichia coli (strain K12)
+        Gene targets: 2 - 1
+     3. D-Levofloxacin + Hexamethonium
+        Organisms: Streptococcus pneumoniae serotype 4 (strain ATCC BAA-334 / TIGR4) - Humans
+        Gene targets: 1 - 1
+     4. Metipranolol + Epicaptopril
+        Organisms: Humans - Chryseobacterium meningosepticum
+        Gene targets: 2 - 4
+     5. Cytidine + Neomycin
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+   False Negatives (missed real interactions):
+     1. Iron + Acetohydroxamic acid
+        Organisms: Humans - Humans
+        Gene targets: 13 - 2
+     2. Dihydroquinidine barbiturate + Dalfampridine
+        Organisms: Humans - Humans
+        Gene targets: 1 - 16
+     3. Dihydroquinidine barbiturate + Ciprofloxacin
+        Organisms: Humans - Staphylococcus aureus
+        Gene targets: 1 - 10
+     4. Dihydroquinidine barbiturate + Bisacodyl
+        Organisms: Humans - Humans
+        Gene targets: 1 - 9
+     5. Dihydroquinidine barbiturate + Droperidol
+        Organisms: Humans - Humans
+        Gene targets: 1 - 2
+
+7. SUMMARY INSIGHTS:
+   - Model tends to over-predict interactions (more false positives than false negatives)
+   - High sensitivity but lower precision - good at catching interactions but with some false alarms
+
+Report generation completed successfully.
+============================================================

@@ -13,6 +13,7 @@ external-datasets/public-PDDI-analysis-master/terminology-mappings/
 extractor/extracted_data/ddi_datasets/full-known-interactions/
 extractor/extracted_data/ddi_datasets/samples/
 extractor/drugs_data.pkl
+extractor/new_drug_extracted_02_2025.pkl
 extractor/extracted_data/categories/
 extractor/extracted_data/classification/
 extractor/extracted_data/ddi_datasets/converted/

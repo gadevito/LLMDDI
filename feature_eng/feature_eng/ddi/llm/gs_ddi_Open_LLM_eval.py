@@ -13,7 +13,7 @@ from prompts import *
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-client = OpenAI(base_url="http://localhost:1234/v1")
+client = OpenAI(base_url="http://localhost:1234/v1",timeout=1200)
 
 def loadPickle(input_pickle):
     with open(input_pickle, 'rb') as f:
@@ -80,13 +80,22 @@ def classify(drug, model="gpt-4o",backoff_factor=1.0):
 
             msg.append({"role": "user", "content":  USER_DDI_CLASSIFICATION.format(drug1=drug1, smiles1=smiles1, org1=org1, genes1=genes1, drug2=drug2, smiles2=smiles2, org2=org2, genes2=genes2)})
 
-
-            response = client.chat.completions.create(model=model,
-                                                messages=msg,
-                                                seed=123,
-                                                max_tokens=10 if model.find("deepseek")==-1 else 4000,
-                                                temperature = 0)
+            if model.find("qwen3-4b-thinking-2507") !=-1 or  model.find("phi-4") !=-1 or  model.find("nemotron") !=-1:
+                response = client.chat.completions.create(model=model,
+                                                    messages=msg,
+                                                    seed=123,
+                                                    timeout=1200.0,
+                                                    max_tokens=2000,
+                                                    reasoning_effort="minimal",
+                                                    temperature = 1)
+            else:
+                response = client.chat.completions.create(model=model,
+                                                    messages=msg,
+                                                    seed=123,
+                                                    max_tokens=10 if model.find("deepseek")==-1 else 4000,
+                                                    temperature = 0)
             cleaned_text = response.choices[0].message.content  
+            #print(cleaned_text)
             i = cleaned_text.find("</think>")
             if i !=-1:
                 cleaned_text = cleaned_text[i+8:]
